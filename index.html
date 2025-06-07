@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wasnal Delivery Service</title>
+  <link rel="icon" href="logo.jpg" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
   <style>
     * {
@@ -18,7 +19,7 @@
       color: #2C3E50;
       position: relative;
       min-height: 100vh;
-      padding-top: 3rem; /* to avoid overlap with status */
+      padding-top: 3rem;
     }
 
     header {
@@ -105,7 +106,7 @@
     }
 
     .service span.status {
-      display: none; /* Hide all status spans completely */
+      display: none;
     }
 
     .order-form {
@@ -165,7 +166,6 @@
       margin-top: 2rem;
     }
 
-    /* Global status bar for Delivery Service */
     #global-status {
       position: fixed;
       top: 0;
@@ -192,12 +192,10 @@
   </style>
 </head>
 <body>
-
   <!-- Global open/close status at top-right -->
   <div id="global-status">Checking service status...</div>
 
   <header>
-    
     <h1>Wasnal</h1>
     <nav>
       <a href="#services">Services</a>
@@ -225,7 +223,7 @@
         <p>Vegetables</p>
         <span class="status" id="status-vegetables"></span>
       </div>
-     
+    </div>
   </section>
 
   <section class="order-form" id="order">
@@ -254,7 +252,7 @@
 
     async function updateGlobalStatus() {
       try {
-        const res = await fetch('status.json?cache=' + new Date().getTime()); // prevent caching
+        const res = await fetch('status.json?cache=' + new Date().getTime());
         if (!res.ok) throw new Error('Failed to fetch status');
         const statusData = await res.json();
 
@@ -274,9 +272,8 @@
     }
 
     updateGlobalStatus();
-    setInterval(updateGlobalStatus, 10 * 1000); // update every 10 seconds
+    setInterval(updateGlobalStatus, 10 * 1000);
 
-    // Make each service clickable and redirect
     document.querySelectorAll('.service').forEach(service => {
       service.addEventListener('click', () => {
         const url = service.getAttribute('data-url');
@@ -284,6 +281,5 @@
       });
     });
   </script>
-
 </body>
 </html>
