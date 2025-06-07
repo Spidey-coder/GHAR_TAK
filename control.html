@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Control Delivery Status</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background: #f0f0f0; }
+    button { padding: 1rem 2rem; font-size: 1.2rem; margin-right: 1rem; cursor: pointer; }
+    .open { background: #27AE60; color: white; border: none; }
+    .closed { background: #E74C3C; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+  <h1>Delivery Service Status Control</h1>
+  <button class="open" onclick="setStatus(true)">Open Store</button>
+  <button class="closed" onclick="setStatus(false)">Close Store</button>
+
+  <p id="msg"></p>
+
+  <script>
+    function setStatus(isOpen) {
+      fetch('set-status.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ open: isOpen })
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('msg').textContent = 'Status updated to ' + (isOpen ? 'OPEN' : 'CLOSED');
+      })
+      .catch(err => {
+        document.getElementById('msg').textContent = 'Error updating status';
+      });
+    }
+  </script>
+
+</body>
+</html>

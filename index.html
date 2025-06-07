@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wasnal Delivery Service</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #FAFAFA;
+      color: #2C3E50;
+      position: relative;
+      min-height: 100vh;
+      padding-top: 3rem; /* to avoid overlap with status */
+    }
+
+    header {
+      background-color: #1F618D;
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .hero {
+      background-color: #1F618D;
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+    }
+
+    .hero img {
+      margin-top: 2rem;
+      max-width: 320px;
+      width: 90%;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .services {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .services h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-icons {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .service {
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      max-width: 120px;
+    }
+
+    .service i {
+      font-size: 2rem;
+      color: #27AE60;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .service p {
+      margin-top: 0;
+      font-weight: 600;
+      color: #1F618D;
+      text-decoration: underline;
+    }
+
+    .service span.status {
+      display: none; /* Hide all status spans completely */
+    }
+
+    .order-form {
+      padding: 2rem 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .order-form h3 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    form button {
+      width: 100%;
+      padding: 0.9rem;
+      background-color: #F39C12;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .whatsapp-btn {
+      margin-top: 1rem;
+      display: block;
+      text-align: center;
+    }
+
+    .whatsapp-btn a {
+      display: inline-block;
+      background-color: #25D366;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    footer {
+      background-color: #1F618D;
+      text-align: center;
+      color: white;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Global status bar for Delivery Service */
+    #global-status {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #1F618D;
+      color: white;
+      padding: 0.4rem 1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      border-bottom-left-radius: 8px;
+      z-index: 1000;
+      user-select: none;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    #global-status.open {
+      background-color: #27AE60;
+    }
+
+    #global-status.closed {
+      background-color: #E74C3C;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Global open/close status at top-right -->
+  <div id="global-status">Checking service status...</div>
+
+  <header>
+    <h1>Wasnal</h1>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#order">Order Now</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Delivery Service in Wasnal</h2>
+    <p>We bring Wasnal’s shops to your door!</p>
+  </section>
+
+  <section class="services" id="services">
+    <h3>Our Services</h3>
+    <div class="service-icons">
+      <div class="service" data-url="Snacks.html" data-hours="8-20">
+        <i>🛒</i>
+        <p>Snacks</p>
+        <span class="status" id="status-SNACKS"></span>
+      </div>
+
+      <div class="service" data-url="Vegetables.html" data-hours="7-19">
+        <i>🥕</i>
+        <p>Vegetables</p>
+        <span class="status" id="status-vegetables"></span>
+      </div>
+      <div class="service" data-url="Accecories.html" data-hours="8-19">
+        <i>💡</i>
+        <p>Accessories</p>
+        <span class="status" id="status-accessories"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-form" id="order">
+    <h3>Order Now</h3>
+    <form action="https://formspree.io/f/your-form-id" method="POST">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="address" placeholder="Delivery Address" required>
+      <textarea name="items" rows="4" placeholder="Items to Order" required></textarea>
+      <button type="submit">Submit Order</button>
+    </form>
+
+    <div class="whatsapp-btn">
+      <a href="https://wa.me/923305715549?text=Hello%2C%20I%20want%20to%20order%20groceries%20from%20Wasnal%20market." target="_blank">
+        📲 Order via WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>📞 Call us: 0330-5715549 | 📍 Wasnal, Pakistan</p>
+  </footer>
+
+  <script>
+    const globalStatus = document.getElementById('global-status');
+
+    async function updateGlobalStatus() {
+      try {
+        const res = await fetch('status.json?cache=' + new Date().getTime()); // prevent caching
+        if (!res.ok) throw new Error('Failed to fetch status');
+        const statusData = await res.json();
+
+        if (statusData.open) {
+          globalStatus.textContent = "Delivery Service is OPEN";
+          globalStatus.classList.add('open');
+          globalStatus.classList.remove('closed');
+        } else {
+          globalStatus.textContent = "Delivery Service is CLOSED";
+          globalStatus.classList.add('closed');
+          globalStatus.classList.remove('open');
+        }
+      } catch(e) {
+        globalStatus.textContent = "Error loading status";
+        globalStatus.classList.remove('open', 'closed');
+      }
+    }
+
+    updateGlobalStatus();
+    setInterval(updateGlobalStatus, 10 * 1000); // update every 10 seconds
+
+    // Make each service clickable and redirect
+    document.querySelectorAll('.service').forEach(service => {
+      service.addEventListener('click', () => {
+        const url = service.getAttribute('data-url');
+        if (url) window.location.href = url;
+      });
+    });
+  </script>
+
+</body>
+</html>
